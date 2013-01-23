@@ -15,15 +15,15 @@ str('There are 23 people reading this blog')->match('/\d+/');
 
 Substitution
 ```php
-str('all of the es')->gsub('/e/', 'y')
+str('all of the es')->gsub('/e/', 'y');
 ```
 
 Scan will return an array of matches
 ```php
-str('010 202 312 332')->scan('/\d+/')
+str('010 202 312 332')->scan('/\d+/');
 ```
 
 Split will return an array of tokens
 ```php
-str('010 202-312 332')->split('/\s/')
+str('010 202-312 332')->split('/\s/');
 ```
