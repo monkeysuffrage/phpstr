@@ -7,7 +7,7 @@ class Str{
   }
 
   function match($regex, $group_number = 0){
-    preg_match($regex, $this->text, $m);
+    if(!preg_match($regex, $this->text, $m)) return false;
     return $m[$group_number];
   }
 
