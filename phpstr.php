@@ -17,7 +17,11 @@ class Str{
   }
 
   function gsub($regex, $replacement, $limit = -1){
-    return preg_replace($regex, $replacement, $this->text, $limit);
+    if('Closure' == get_class($replacement)){
+      return preg_replace_callback($regex, $replacement, $this->text, $limit);
+    } else {
+      return preg_replace($regex, $replacement, $this->text, $limit);
+    }
   }
 
   function sub($regex, $replacement){
