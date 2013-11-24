@@ -11,13 +11,13 @@ class Str{
     return $m[$group_number];
   }
 
-  function scan($regex){
+  function scan($regex, $group_number = 0){
     preg_match_all($regex , $this->text, $m);
-    return $m[0];
+    return $m[$group_number];
   }
 
   function gsub($regex, $replacement, $limit = -1){
-    if('Closure' == get_class($replacement)){
+    if('Closure' == @get_class($replacement)){
       return preg_replace_callback($regex, $replacement, $this->text, $limit);
     } else {
       return preg_replace($regex, $replacement, $this->text, $limit);
