@@ -1,5 +1,16 @@
 <?php
-class Str{ 
+/**
+ * PHPStr - Add regex functionality to PHP strings
+ * Website: https://github.com/monkeysuffrage/phpstr
+ *
+ * @author P Guardiario <pguardiario@gmail.com>
+ * @version 0.2
+ */
+
+/**
+ * Str
+ */
+ class Str{ 
   var $text;
 
   function __construct($str){
@@ -8,7 +19,8 @@ class Str{
 
   function match($regex, $group_number = 0){
     if(!preg_match($regex, $this->text, $m)) return false;
-    return $m[$group_number];
+    $val = $m[$group_number];
+    return new Str($val);
   }
 
   function scan($regex, $group_number = 0){
@@ -18,22 +30,28 @@ class Str{
 
   function gsub($regex, $replacement, $limit = -1){
     if('Closure' == @get_class($replacement)){
-      return preg_replace_callback($regex, $replacement, $this->text, $limit);
+      $val = preg_replace_callback($regex, $replacement, $this->text, $limit);
     } else {
-      return preg_replace($regex, $replacement, $this->text, $limit);
+      $val = preg_replace($regex, $replacement, $this->text, $limit);
     }
+    return new Str($val);
   }
 
   function sub($regex, $replacement){
-    return $this->gsub($regex, $replacement, 1);
+    $val = $this->gsub($regex, $replacement, 1);
+    return new Str($val);
   }
 
   function split($regex, $limit = -1){
     return preg_split($regex, $this->text, $limit);
   }
+
+  public function __toString(){ return $this->text; }
+  public function to_s(){ return $this->text; }
 }
 
 function str($str){
   return new Str($str);
 }
+
 ?>
